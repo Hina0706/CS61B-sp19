@@ -3,15 +3,15 @@ public class LinkedListDeque<T> {
     private int size;
     private IntNode sentinel;
 
-    public class IntNode {
+    private class IntNode {
         T item;
         IntNode prev;
         IntNode next;
 
         public IntNode() {
-          item = null;
-          prev = null;
-          next = null;
+            item = null;
+            prev = null;
+            next = null;
         }
     }
 
@@ -66,7 +66,7 @@ public class LinkedListDeque<T> {
 
     public void printDeque() {
         for (int i = 0; i < size; i++) {
-          System.out.print(get(i));
+            System.out.print(get(i));
         }
         System.out.println();
     }
@@ -78,25 +78,25 @@ public class LinkedListDeque<T> {
     // exists, returns null.
     public T removeFirst() {
         if (size == 0) {
-          return null;
+            return null;
         } else {
-          IntNode p = sentinel.next;
-          sentinel.next = p.next;
-          p.next.prev = sentinel;
-          size--;
-          return p.item;
+            IntNode p = sentinel.next;
+            sentinel.next = p.next;
+            p.next.prev = sentinel;
+            size--;
+            return p.item;
         }
     }
 
     public T removeLast() {
         if (size == 0) {
-          return null;
+            return null;
         } else {
-          IntNode p = sentinel.prev;
-          sentinel.prev = p.prev;
-          p.prev.next = sentinel;
-          size--;
-          return p.item;
+            IntNode p = sentinel.prev;
+            sentinel.prev = p.prev;
+            p.prev.next = sentinel;
+            size--;
+            return p.item;
         }
     }
 
@@ -104,17 +104,17 @@ public class LinkedListDeque<T> {
     public T get(int index) {
         IntNode p = sentinel.next;
         while (index != 0) {
-          p = p.next;
-          index--;
+            p = p.next;
+            index--;
         }
         return p.item;
     }
 
     private T getRcrs(IntNode p, int index) {
         if (index == 0) {
-          return p.item;
+            return p.item;
         } else {
-          return getRcrs(p.next, index - 1);
+            return getRcrs(p.next, index - 1);
         }
     }
 

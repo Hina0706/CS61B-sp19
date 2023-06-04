@@ -26,7 +26,7 @@ public class ArrayDeque<T> {
         if (index - 1 < 0) {
             return length + index - 1;
         } else {
-           return index - 1;
+            return index - 1;
         }
     }
 
@@ -84,7 +84,7 @@ public class ArrayDeque<T> {
     public T get(int index) {
         int i = plusOne(nextFirst);
         for (int k = 0; k < index; k++) {
-          i = plusOne(i);
+            i = plusOne(i);
         }
         return a[i];
     }
