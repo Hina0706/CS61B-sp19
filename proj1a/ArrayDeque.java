@@ -58,7 +58,7 @@ public class ArrayDeque<T> {
     }
 
     private int plusOne(int index) {
-        if (index > capacity - 1) {
+        if (index >= capacity - 1) {
             return index + 1 - capacity;
         } else {
             return index + 1;
@@ -68,7 +68,7 @@ public class ArrayDeque<T> {
     // add and remove must take constant time, except during resizing operations.
     public void addFirst(T item) {
         if (isFull()) {
-            resize(size * 2);
+            resize(capacity * 2);
         }
         a[nextFirst] = item;
         size++;
@@ -77,7 +77,7 @@ public class ArrayDeque<T> {
 
     public void addLast(T item) {
         if (isFull()) {
-            resize(size * 2);
+            resize(capacity * 2);
         }
         a[nextLast] = item;
         size++;
