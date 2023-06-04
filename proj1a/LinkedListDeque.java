@@ -2,7 +2,7 @@
 //import java.util.LinkedList;
 // import java.util.NoSuchElementException;
 
-public class LinkedListDeque<T>{
+public class LinkedListDeque<T> {
 
     private int size;
     private IntNode sentinel;
@@ -27,12 +27,12 @@ public class LinkedListDeque<T>{
     }
 
     // deep copy
-    public LinkedListDeque(LinkedListDeque other) {
-        this();
-        for (int i = 0; i < other.size; i++){
-            addLast((T) other.get(i));
-        }
-    }
+    // public LinkedListDeque(LinkedListDeque other) {
+    //     this();
+    //     for (int i = 0; i < other.size; i++) {
+    //         addLast((T) other.get(i));
+    //     }
+    // }
 
     // add and remove operations must not involve any looping or recursion
     // A single such operation must take “constant time”,
@@ -113,6 +113,9 @@ public class LinkedListDeque<T>{
     //@Override
     // get must use iteration, not recursion.
     public T get(int index) {
+        if (index >= size) {
+            return null;
+        }
         IntNode p = sentinel.next;
         while (index != 0) {
             p = p.next;
@@ -122,7 +125,9 @@ public class LinkedListDeque<T>{
     }
 
     private T getRcrs(IntNode p, int index) {
-        if (index == 0) {
+        if (index >= size) {
+            return null;
+        } else if (index == 0) {
             return p.item;
         } else {
             return getRcrs(p.next, index - 1);

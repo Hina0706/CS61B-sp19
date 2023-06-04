@@ -22,7 +22,7 @@ public class ArrayDeque<T> {
         T[] k = (T[]) new Object[newCapacity];
         int m = nextFirst;
         for (int i = 0; i < size; i++) {
-            m = minusOne(m);
+            m = plusOne(m);
             k[i] = a[m];
         }
         a = k;
@@ -42,12 +42,12 @@ public class ArrayDeque<T> {
     }
 
     // deep copy
-    public ArrayDeque(ArrayDeque other) {
-        this();
-        for (int k = 0; k < other.size; k++) {
-            addLast((T) other.get(k));
-        }
-    }
+    // public ArrayDeque(ArrayDeque other) {
+    //     this();
+    //     for (int k = 0; k < other.size; k++) {
+    //         addLast((T) other.get(k));
+    //     }
+    // }
 
     private int minusOne(int index) {
         if (index - 1 < 0) {
