@@ -5,15 +5,40 @@ public class ArrayDeque<T> {
     private int nextFirst = 0;
     private int nextLast = 1;
     private T[] a;
+    private double usageFactor = 0.25;
+    private double usageRatio = 0.0;
 
     public ArrayDeque() {
         this(8);
     }
-    
+
     private ArrayDeque(int capacity) {
         a = (T[]) new Object[capacity];
         size = 0;
         this.capacity = capacity;
+    }
+
+    private void resize(int newCapacity) {
+        T[] k = (T[]) new Object[newCapacity];
+        int m = nextFirst;
+        for (int i = 0; i < size; i++) {
+            m = minusOne(m);
+            k[i] = a[m];
+        }
+        a = k;
+        nextFirst = newCapacity - 1;
+        nextLast = size;
+    }
+
+    private boolean isFull() {
+        return size == capacity;
+    }
+
+    private boolean needShrink() {
+        if (usageRatio < usageFactor && capacity > 8) {
+            return true;
+        }
+        return false;
     }
 
     // deep copy
@@ -42,12 +67,18 @@ public class ArrayDeque<T> {
 
     // add and remove must take constant time, except during resizing operations.
     public void addFirst(T item) {
+        if (isFull()) {
+            resize(size * 2);
+        }
         a[nextFirst] = item;
         size++;
         nextFirst = minusOne(nextFirst);
     }
 
     public void addLast(T item) {
+        if (isFull()) {
+            resize(size * 2);
+        }
         a[nextLast] = item;
         size++;
         nextLast = plusOne(nextLast);
@@ -75,8 +106,13 @@ public class ArrayDeque<T> {
         if (isEmpty()) {
             return null;
         } else {
-            T k = a[plusOne(nextFirst)];
-            a[minusOne(nextFirst)] = null;
+            nextFirst = plusOne(nextFirst);
+            T k = a[nextFirst];
+            a[nextFirst] = null;
+            size--;
+            if (needShrink()) {
+                resize(capacity / 2);
+            }
             return k;
         }
     }
@@ -85,13 +121,21 @@ public class ArrayDeque<T> {
         if (isEmpty()) {
             return null;
         } else {
-            T k = a[minusOne(nextLast)];
-            a[minusOne(nextLast)] = null;
+            nextLast = minusOne(nextLast);
+            T k = a[nextLast];
+            a[nextLast] = null;
+            size--;
+            if (needShrink()) {
+                resize(capacity / 2);
+            }
             return k;
         }
     }
 
     public T get(int index) {
+        if (index >= size) {
+            return null;
+        }
         int i = plusOne(nextFirst);
         for (int k = 0; k < index; k++) {
             i = plusOne(i);
