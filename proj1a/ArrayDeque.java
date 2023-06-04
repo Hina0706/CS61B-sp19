@@ -50,7 +50,7 @@ public class ArrayDeque<T> {
     // }
 
     private int minusOne(int index) {
-        if (index - 1 < 0) {
+        if (index == 0) {
             return capacity + index - 1;
         } else {
             return index - 1;
