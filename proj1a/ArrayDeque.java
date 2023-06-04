@@ -31,7 +31,7 @@ public class ArrayDeque<T> {
     }
 
     private int plusOne(int index) {
-        if (index + 1 > length - 1) {
+        if (index > length - 1) {
             return index + 1 - length;
         } else {
             return index + 1;
