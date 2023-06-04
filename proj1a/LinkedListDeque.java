@@ -1,4 +1,7 @@
-public class LinkedListDeque<T> {
+import java.util.LinkedList;
+import java.util.NoSuchElementException;
+
+public class LinkedListDeque<T> extends LinkedList<T> implements Deque<T>{
 
     private int size;
     private IntNode sentinel;
@@ -33,6 +36,7 @@ public class LinkedListDeque<T> {
     // add and remove operations must not involve any looping or recursion
     // A single such operation must take “constant time”,
     // i.e. execution time should not depend on the size of the deque.
+    @Override
     public void addFirst(T item) {
         IntNode p = sentinel.next;
         IntNode newNode = new IntNode();
@@ -44,6 +48,7 @@ public class LinkedListDeque<T> {
         size++;
     }
 
+    @Override
     public void addLast(T item) {
         IntNode p = sentinel.prev;
         IntNode newNode = new IntNode();
@@ -55,15 +60,13 @@ public class LinkedListDeque<T> {
         size++;
     }
 
-    public boolean isEmpty() {
-        return size == 0;
-    }
-
     // size must take constant time.
+    @Override
     public int size() {
         return size;
     }
 
+    @Override
     public void printDeque() {
         for (int i = 0; i < size; i++) {
             System.out.print(get(i));
@@ -76,6 +79,7 @@ public class LinkedListDeque<T> {
     // i.e. execution time should not depend on the size of the deque.
     // Removes and returns the item at the front of the deque. If no such item
     // exists, returns null.
+    @Override
     public T removeFirst() {
         if (size == 0) {
             return null;
@@ -88,6 +92,7 @@ public class LinkedListDeque<T> {
         }
     }
 
+    @Override
     public T removeLast() {
         if (size == 0) {
             return null;
@@ -100,6 +105,7 @@ public class LinkedListDeque<T> {
         }
     }
 
+    @Override
     // get must use iteration, not recursion.
     public T get(int index) {
         IntNode p = sentinel.next;

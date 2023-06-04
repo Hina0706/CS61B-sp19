@@ -1,17 +1,19 @@
 public class ArrayDeque<T> {
 
-    private int size;
-    private int length;
-    private int nextFirst;
-    private int nextLast;
+    private int size = 0;
+    private int capacity = 8;
+    private int nextFirst = 0;
+    private int nextLast = 1;
     private T[] a;
 
     public ArrayDeque() {
-        a = (T[]) new Object[8];
+        this(8);
+    }
+    
+    private ArrayDeque(int capacity) {
+        a = (T[]) new Object[capacity];
         size = 0;
-        nextFirst = 0;
-        nextLast = 7;
-        length = 8;
+        this.capacity = capacity;
     }
 
     // deep copy
@@ -24,15 +26,15 @@ public class ArrayDeque<T> {
 
     private int minusOne(int index) {
         if (index - 1 < 0) {
-            return length + index - 1;
+            return capacity + index - 1;
         } else {
             return index - 1;
         }
     }
 
     private int plusOne(int index) {
-        if (index > length - 1) {
-            return index + 1 - length;
+        if (index > capacity - 1) {
+            return index + 1 - capacity;
         } else {
             return index + 1;
         }
@@ -70,15 +72,23 @@ public class ArrayDeque<T> {
 
     // add and remove must take constant time, except during resizing operations.
     public T removeFirst() {
-        T k = a[plusOne(nextFirst)];
-        a[minusOne(nextFirst)] = null;
-        return k;
+        if (isEmpty()) {
+            return null;
+        } else {
+            T k = a[plusOne(nextFirst)];
+            a[minusOne(nextFirst)] = null;
+            return k;
+        }
     }
 
     public T removeLast() {
-        T k = a[minusOne(nextLast)];
-        a[minusOne(nextLast)] = null;
-        return k;
+        if (isEmpty()) {
+            return null;
+        } else {
+            T k = a[minusOne(nextLast)];
+            a[minusOne(nextLast)] = null;
+            return k;
+        }
     }
 
     public T get(int index) {
