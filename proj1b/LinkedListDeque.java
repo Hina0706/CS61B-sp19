@@ -1,6 +1,6 @@
 import java.util.LinkedList;
-import java.util.NoSuchElementException;
-public class LinkedListDeque<T> extends LinkedList<T> implements Deque<T>{
+
+public class LinkedListDeque<T> extends LinkedList<T> implements Deque<T> {
 
     private int size;
     private IntNode sentinel;

@@ -8,10 +8,11 @@ public class TestOffByOne {
 
     // Your tests go here.
     @Test
-    public void testOffByOne(){
+    public void testOffByOne() {
         char k1 = 'u';
         char k2 = 'm';
         boolean expected = offByOne.equalChars(k1, k2);
         assertFalse(expected);
     }
 }
+

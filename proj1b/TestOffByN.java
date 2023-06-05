@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 public class TestOffByN {
 
     @Test
-    public void testOffByN(){
+    public void testOffByN() {
         OffByN offBy5 = new OffByN(5);
         boolean expected1 = offBy5.equalChars('a', 'f');
         boolean expected2 = offBy5.equalChars('f', 'a');

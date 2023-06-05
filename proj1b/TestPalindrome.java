@@ -15,4 +15,12 @@ public class TestPalindrome {
         }
         assertEquals("persiflage", actual);
     }
+
+    @Test
+    public void testIsPalindrome() {
+        CharacterComparator offByOne = new OffByOne();
+        String word = "detrude";
+        boolean expected1 = palindrome.isPalindrome(word, offByOne);
+        System.out.print(expected1);
+    }
 }
