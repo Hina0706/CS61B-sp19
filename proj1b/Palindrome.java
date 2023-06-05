@@ -9,10 +9,21 @@ public class Palindrome {
 
   public boolean isPalindrome(String word) {
       Deque<Character> p1 = wordToDeque(word);
-      Deque<Character> p2 = new LinkedListDeque<Character>();
-      for (int i = 0; i < word.length(); i++) {
-        p2.addFirst(word.charAt(i));
+      Deque<Character> p2 = wordToDeque(word);
+      for(int i = 0; i < word.length(); i++){
+          if(p1.removeFirst() != p2.removeLast()){
+              return false;
+          }
       }
-      return p1.equals(p2);
+      return true;
+  }
+
+  public boolean isPalindrome(String word, CharacterComparator cc) {
+        for(int i = 0; i < word.length(); i++) {
+            if(! cc.equalChars(word.charAt(i), word.charAt(word.length()-1-i))) {
+                return false;
+            }
+        }
+        return true;
   }
 }
