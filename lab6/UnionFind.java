@@ -14,7 +14,7 @@ public class UnionFind {
 
     /* Throws an exception if v1 is not a valid index. */
     private void validate(int vertex) {
-        if (vertex < 0) {
+        if (vertex < 0 || vertex >= parent.length) {
             throw new IllegalArgumentException("Index cannot be negative");
         }
     }
@@ -22,6 +22,7 @@ public class UnionFind {
     /* Returns the size of the set v1 belongs to. */
     public int sizeOf(int v1) {
         // TODO
+        validate(v1);
         return -parent(find(v1));
     }
 
@@ -34,6 +35,8 @@ public class UnionFind {
     /* Returns true if nodes v1 and v2 are connected. */
     public boolean connected(int v1, int v2) {
         // TODO
+        validate(v1);
+        validate(v2);
         return find(v1) == find(v2);
     }
 
@@ -44,16 +47,19 @@ public class UnionFind {
        change the sets but may alter the internal structure of the data. */
     public void union(int v1, int v2) {
         // TODO
+        validate(v1);
+        validate(v2);
         if (connected(v1, v2)) {
             return;
         }
-        if (sizeOf(v1) >= sizeOf(v2)) {
-            int r1 = find(v1);
-            int r2 = find(v2);
+        int r1 = find(v1);
+        int r2 = find(v2);
+        if (sizeOf(v1) > sizeOf(v2)) {
             parent[r2] = r1;
-            parent[r1] += r2;
+            parent[r1] -= sizeOf(r2);
         } else {
-            union(v2, v1);
+            parent[r1] = r2;
+            parent[r2] -= sizeOf(r1);
         }
 
     }
@@ -67,7 +73,7 @@ public class UnionFind {
             i = parent(i);
         }
         int k = vertex;
-        while (parent(k) != i) {
+        while (parent(k) != i && parent(k) >= 0) {
             k = parent(k);
             parent[k] = i;
         }
