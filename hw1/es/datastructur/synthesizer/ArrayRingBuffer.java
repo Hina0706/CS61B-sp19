@@ -42,7 +42,7 @@ public class ArrayRingBuffer<T> implements BoundedQueue<T>{
         }
         public T next() {
             T returnItem = (T) rb[pos];
-            pos ++;
+            pos = addition(pos, 1);
             return returnItem;
         }
     }
